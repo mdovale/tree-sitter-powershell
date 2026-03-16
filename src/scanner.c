@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See the LICENSE file in the project root for full license information.
 
-#include <tree_sitter/parser.h>
+#include "tree_sitter/parser.h"
 #include <wctype.h>
 
 enum TOKEN_TYPE {
