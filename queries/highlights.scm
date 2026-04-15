@@ -29,6 +29,24 @@
 "parallel" @keyword
 "sequence" @keyword
 
+; foreach: `foreach ($x in $items)` — "in" is a reserved word
+"in" @keyword
+
+; class / enum names (keyword `class`/`enum` are anonymous tokens — highlight declared names)
+(class_statement
+  (simple_name) @type)
+
+(enum_statement
+  (simple_name) @type)
+
+(class_attribute) @keyword
+
+(class_method_definition
+  (simple_name) @function)
+
+(enum_member
+  (simple_name) @variable)
+
 "-as" @operator
 "-ccontains" @operator
 "-ceq" @operator
@@ -94,6 +112,19 @@
 ".." @operator
 "-not" @operator
 
+; Switch / data / format operators not covered by comparison_operator list
+"-regex" @operator
+"-wildcard" @operator
+"-exact" @operator
+"-casesensitive" @operator
+"-file" @operator
+"-supportedcommand" @operator
+"-parallel" @operator
+"-f" @operator
+
+; Pipeline boolean chains
+"&&" @operator
+"||" @operator
 
 ";" @delimiter
 
@@ -126,3 +157,33 @@
 
 (assignment_expression
   value: (pipeline) @assignvalue)
+
+; Cmdlet / function parameters (-Name, --% style switches)
+(command_parameter) @attribute
+
+; [CmdletBinding()], [Parameter(...)], type literals used as attributes
+(attribute) @attribute
+
+; Assignment and I/O operators (separate from reserved-word comparison ops)
+(assignement_operator) @operator
+(file_redirection_operator) @operator
+(merging_redirection_operator) @operator
+(pipeline_chain_tail) @operator
+
+; $( ... ) subexpressions
+(sub_expression) @embedded
+
+; Literal collections
+(array_literal_expression) @array
+
+; @{ name = value }
+(hash_literal_expression) @punctuation
+
+; :label
+(label) @label
+
+; Ranges like 1..10
+(range_expression) @number
+
+; Stop-parsing / native arg passthrough
+(verbatim_command_argument) @preprocessor
